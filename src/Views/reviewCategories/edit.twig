@@ -1,0 +1,42 @@
+{% extends "app.twig" %}
+
+{% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
+{% block title %}Review Categories Edit{% endblock %}
+
+{% block content %}
+
+    {% if reviewCategory[0] %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+    <a href="javascript:FunApp.deleteResource({{ reviewCategory[0].id }}, 'Review Category', 'delete-form-{{ reviewCategory[0].id }}')" class="btn btn-danger float-right"><i class="bi bi-trash"></i><span class="mobile-hidden"> Delete</span></a>
+    <form method="post" action="/reviewCategories/{{ reviewCategory[0].id }}/delete" id="delete-form-{{ reviewCategory[0].id }}"></form>
+    
+        <form method="post" action="/reviewCategories/{{ reviewCategory[0].id }}">
+            <div class="card bg-dark text-white text-center">
+                <div class="card-header">
+                    <h2>Edit Review Category</h2>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ reviewCategory[0].name }}</h5>
+                    <div class="card-text">
+                        <label for="name" class="form-label float-left">Name</label>
+                        <input type="text" class="form-control" name="name" value="{{ reviewCategory[0].name }}"  required>
+                        <div class="form-group mt-5 text-left">
+                            <label for="description" class="form-label float-left">Description</label>
+                            <textarea rows="5" class="form-control" name="description" placeholder="Enter Description">{{ reviewCategory[0].description }}</textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right mt-5"><i class="bi bi-sd-card"></i> Save</button>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    Created: {{ reviewCategory[0].created_at|format_datetime() }}
+                </div>
+            </div>
+        </form>
+    {% else %}
+        <div class="text-center">No Review Category found by specified id.</div>
+    {% endif %}
+
+{% endblock %}

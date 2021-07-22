@@ -1,0 +1,42 @@
+{% extends "app.twig" %}
+
+{% block title %}Games Create{% endblock %}
+
+{% block content %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+
+    <form method="post" action="/games">
+        <div class="card bg-dark text-white text-center">
+            <div class="card-header">
+                <h2>Create Game</h2>
+                <hr>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <label for="name" class="form-label float-left">Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter Name" required {% if platforms[0] %} {% else %} disabled {% endif %}>
+                    <div class="form-group mt-5 text-left">
+                        <label class="form-label" for="multiSelect">Select Platforms</label>
+                        <div class="form-control select-faker" id="multiSelect"  data-table-string="platforms">
+                            {% if platforms[0] %}
+                                {% for platform in platforms %}
+                                    <option value="{{platform.id}}">{{platform.name}}</option>
+                                {% endfor %}
+                            {% else %}
+                                <div class="p-2">
+                                    <a href="{{url('/platforms/create')}}" >Looks like some platforms need to be created... Click here to create.</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary float-right mt-5" {% if platforms[0] %} {% else %} disabled {% endif %}><i class="bi bi-plus"></i> Create</button>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

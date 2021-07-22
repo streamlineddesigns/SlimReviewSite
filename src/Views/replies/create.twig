@@ -1,0 +1,42 @@
+{% extends "app.twig" %}
+
+{% block title %}Replies Create{% endblock %}
+
+{% block content %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+
+    <form method="post" action="/replies">
+        <div class="card bg-dark text-white text-center">
+            <div class="card-header">
+                <h2>Create Reply</h2>
+                <hr>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <label for="Text" class="form-label float-left">Reply Text</label>
+                    <textarea rows="5" class="form-control" name="text" placeholder="Reply Text" required {% if reviewCategories[0] %} {% else %} disabled {% endif %}></textarea>
+                    <div class="form-group mt-5 text-left">
+                        <label class="form-label" for="multiSelect">Select Review Categories</label>
+                        <div class="form-control select-faker" id="multiSelect" data-table-string="reviewCategories">
+                            {% if reviewCategories[0] %}
+                                {% for reviewCategory in reviewCategories %}
+                                    <option value="{{reviewCategory.id}}">{{reviewCategory.name}}</option>
+                                {% endfor %}
+                            {% else %}
+                                <div class="p-2">
+                                    <a href="{{url('/reviewCategories/create')}}" >Looks like some Review Categories need to be created... Click here to create.</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary float-right mt-5" {% if reviewCategories[0] %} {% else %} disabled {% endif %}><i class="bi bi-plus"></i> Create</button>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

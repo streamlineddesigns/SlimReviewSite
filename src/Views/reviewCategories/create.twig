@@ -1,0 +1,32 @@
+{% extends "app.twig" %}
+
+{% block title %}Review Categories Create{% endblock %}
+
+{% block content %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+
+    <form method="post" action="/reviewCategories">
+        <div class="card bg-dark text-white text-center">
+            <div class="card-header">
+                <h2>Create Review Category</h2>
+                <hr>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <label for="name" class="form-label float-left">Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter Name"  required>
+                    <div class="form-group mt-5 text-left">
+                        <label for="description" class="form-label float-left">Description</label>
+                        <textarea rows="5" class="form-control" name="description" placeholder="Enter Description"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary float-right mt-5"><i class="bi bi-plus"></i> Create</button>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

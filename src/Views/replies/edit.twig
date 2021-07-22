@@ -1,0 +1,48 @@
+{% extends "app.twig" %}
+
+{% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
+{% block title %}Replies Edit{% endblock %}
+
+{% block content %}
+
+    {% if reply[0] %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+    <a href="javascript:FunApp.deleteResource({{ reply[0].id }}, 'reply', 'delete-form-{{ reply[0].id }}')" class="btn btn-danger float-right"><i class="bi bi-trash"></i><span class="mobile-hidden"> Delete</span></a>
+    <form method="post" action="/replies/{{ reply[0].id }}/delete" id="delete-form-{{ reply[0].id }}"></form>
+
+        <form method="post" action="/replies/{{ reply[0].id }}">
+            <div class="card bg-dark text-white text-center">
+                <div class="card-header">
+                    <h2>Edit Reply</h2>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ reply[0].name }}</h5>
+                    <div class="card-text">
+                        <label for="text" class="form-label float-left">Name</label>
+                        <textarea rows="5" type="text" class="form-control" name="text" required>{{ reply[0].text }}</textarea>
+                        <div class="form-group mt-5 text-left">
+                        <label class="form-label" for="multiSelect">Select Review Category</label>
+                        <div class="form-control select-faker" id="multiSelect" data-table-string="reviewCategories">
+                            {% if reviewCategories %}
+                                {% for reviewCategory in reviewCategories %}
+                                    <option value="{{reviewCategory.id}}" {% if inArray(reviewCategory.id, reply_review_categories) %} class="selected-option" {% endif %}>{{reviewCategory.name}}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right mt-5"><i class="bi bi-sd-card"></i> Save</button>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    Created: {{ reply[0].created_at|format_datetime() }}
+                </div>
+            </div>
+        </form>
+    {% else %}
+        <div class="text-center">No Reply found by specified id.</div>
+    {% endif %}
+
+{% endblock %}

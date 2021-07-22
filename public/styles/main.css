@@ -1,0 +1,110 @@
+html, body {
+    height: 100%;
+}
+
+#content {
+    min-height: calc(100vh - 76px);
+}
+
+#logo {
+    max-height: 50px;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.edit-btn {
+    width: 100px;
+}
+
+.search {
+    float: left !important;
+    margin-top: 0px !important;
+}
+
+.search-input {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.custom-group-text {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.fixed-table-pagination {
+    text-align: right !important;
+    margin-top: 2rem!important;
+}
+
+.pagination-detail {
+    float: right !important;
+}
+
+.select-faker {
+    background-color: white;
+    max-height: 200px;
+    overflow-y: scroll;
+    padding: 0px !important;
+    border: none;
+}
+
+.select-faker option {
+    padding: .375rem .75rem;
+}
+
+.select-faker:hover:not(#viewMultiSelect) {
+    cursor: pointer;
+}
+
+.selected-option {
+    background-color: #0d6efd;
+    color: white !important;
+}
+
+.pagination {
+    margin-right: 10px;
+}
+
+.desktop-td {
+    max-width: 250px;
+}
+
+/* Small devices (landscape phones, 576px and below) */
+@media (max-width: 576px)  {
+    .mobile-td {
+        width: 100px;
+    }
+    .mobile-ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 75px;
+    }
+    .search-input {
+        max-width: 150px;
+    }
+}
+
+/* Medium devices (tablets, 768px and below) */
+@media (max-width: 768px)  {
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+/* Large devices (desktops, 992px and below) */
+@media (max-width: 992px)  {
+    span.mobile-hidden {
+        display: none;
+    }
+}

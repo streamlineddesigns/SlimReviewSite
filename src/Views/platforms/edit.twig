@@ -1,0 +1,38 @@
+{% extends "app.twig" %}
+
+{% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
+{% block title %}Platforms Edit{% endblock %}
+
+{% block content %}
+
+    {% if platform[0] %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+    <a href="javascript:FunApp.deleteResource({{ platform[0].id }}, 'platform', 'delete-form-{{ platform[0].id }}')" class="btn btn-danger float-right"><i class="bi bi-trash"></i><span class="mobile-hidden"> Delete</span></a>
+    <form method="post" action="/platforms/{{ platform[0].id }}/delete" id="delete-form-{{ platform[0].id }}"></form>
+    
+        <form method="post" action="/platforms/{{ platform[0].id }}">
+            <div class="card bg-dark text-white text-center">
+                <div class="card-header">
+                    <h2>Edit Platform</h2>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ platform[0].name }}</h5>
+                    <div class="card-text">
+                        <label for="name" class="form-label float-left">Name</label>
+                        <input type="text" class="form-control" name="name" value="{{ platform[0].name }}"  required>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right mt-5"><i class="bi bi-sd-card"></i> Save</button>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    Created: {{ platform[0].created_at|format_datetime() }}
+                </div>
+            </div>
+        </form>
+    {% else %}
+        <div class="text-center">No platform found by specified id.</div>
+    {% endif %}
+
+{% endblock %}

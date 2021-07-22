@@ -1,0 +1,64 @@
+{% extends "app.twig" %}
+
+{% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
+{% block title %}Replies Index{% endblock %}
+
+{% block content %}
+
+    {% if hasMessages() %}
+        {% if successMessage() %}
+            <script>swal("Success!", "{{successMessage()}}", "success");</script>
+        {% elseif errorMessage() %}
+            <script>swal("Error!", "{{errorMessage()}}", "error");</script>
+        {% endif %}
+    {% endif %}
+
+    <a href="replies/create" class="btn btn-success mb-5 float-right"><i class="bi bi-plus"></i> New</a>
+
+    {% if replies %}
+        <table class="table table-striped table-dark table-bordered table-responsive" data-toggle="table" data-pagination="true" data-search="true">
+            <thead>
+                <tr>
+                    <th class="mobile-hidden" data-sortable="true">ID</th>
+                    <th data-sortable="true">Text</th>
+                    <th class="mobile-ellipsis text-center" data-sortable="true">Category</th>
+                    <th class="mobile-hidden text-center" data-sortable="true">Created</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for reply in replies %}
+
+                <tr>
+                    <td class="mobile-hidden">
+                        {{ reply.id }}
+                    </td>
+                    <td class="desktop-td">
+                        {{ reply.text }}
+                    </td>
+                    <td class="mobile-ellipsis text-center">
+                        {% if reply_review_categories[reply.id]|length > 1 %}
+                            Multiple
+                        {% else %}
+                            {{reply_review_categories[reply.id][0]}}
+                        {% endif %}
+                    </td>
+                    <td class="mobile-hidden text-center">
+                        {{ reply.created_at|date("m/d/Y") }}
+                    </td>
+                    <td class="mobile-td text-center">
+                        <a href="replies/{{ reply.id }}/edit" class="btn btn-primary"><i class="bi bi-pencil"></i><span class="mobile-hidden"> Edit</span></a>
+                        <a href="replies/{{ reply.id }}" class="btn btn-secondary"><i class="bi bi-eye"></i><span class="mobile-hidden"> View</span></a>
+                        <a href="javascript:FunApp.deleteResource({{ reply.id }}, 'reply', 'delete-form-{{ reply.id }}')" class="btn btn-danger"><i class="bi bi-trash"></i><span class="mobile-hidden"> Delete</span></a>
+                        <form method="post" action="/replies/{{ reply.id }}/delete" id="delete-form-{{ reply.id }}"></form>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        No replies found.
+    {% endif %}
+
+{% endblock %}

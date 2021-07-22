@@ -1,0 +1,48 @@
+{% extends "app.twig" %}
+
+{% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
+{% block title %}Games Edit{% endblock %}
+
+{% block content %}
+
+    {% if game[0] %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+    <a href="javascript:FunApp.deleteResource({{ game[0].id }}, 'game', 'delete-form-{{ game[0].id }}')" class="btn btn-danger float-right"><i class="bi bi-trash"></i><span class="mobile-hidden"> Delete</span></a>
+    <form method="post" action="/games/{{ game[0].id }}/delete" id="delete-form-{{ game[0].id }}"></form>
+
+        <form method="post" action="/games/{{ game[0].id }}">
+            <div class="card bg-dark text-white text-center">
+                <div class="card-header">
+                    <h2>Edit Game</h2>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ game[0].name }}</h5>
+                    <div class="card-text">
+                        <label for="name" class="form-label float-left">Name</label>
+                        <input type="text" class="form-control" name="name" value="{{ game[0].name }}"  required>
+                        <div class="form-group mt-5 text-left">
+                        <label class="form-label" for="multiSelect">Select Platforms</label>
+                        <div class="form-control select-faker" id="multiSelect"  data-table-string="platforms">
+                            {% if platforms %}
+                                {% for platform in platforms %}
+                                    <option value="{{platform.id}}" {% if inArray(platform.id, game_platforms) %} class="selected-option" {% endif %}>{{platform.name}}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right mt-5"><i class="bi bi-sd-card"></i> Save</button>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    Created: {{ game[0].created_at|format_datetime() }}
+                </div>
+            </div>
+        </form>
+    {% else %}
+        <div class="text-center">No game found by specified id.</div>
+    {% endif %}
+
+{% endblock %}

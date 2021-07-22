@@ -1,0 +1,37 @@
+{% extends "app.twig" %}
+
+{% block title %}Review Categories Show{% endblock %}
+
+{% block content %}
+
+    {% if reviewCategory[0] %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+
+        <div class="card bg-dark text-white text-center">
+            <div class="card-header">
+                <h2>Review Category Details</h2>
+                <hr>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ reviewCategory[0].name }}</h5>
+                <div class="card-text">
+                    <label for="name" class="form-label float-left">Name</label>
+                    <input type="text" class="form-control" name="name" value="{{ reviewCategory[0].name }}" disabled>
+                    <div class="form-group mt-5 text-left">
+                            <label for="description" class="form-label float-left">Description</label>
+                            <textarea disabled rows="5" class="form-control" name="description" placeholder="Enter Description">{{ reviewCategory[0].description }}</textarea>
+                        </div>
+                </div>
+                <a class="btn btn-primary edit-btn mt-5" href="{{ reviewCategory[0].id }}/edit"><i class="bi bi-pencil"></i> Edit</a>
+            </div>
+            <div class="card-footer">
+                <hr>
+                Created: {{ reviewCategory[0].created_at|format_datetime() }}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">No Review Category found by specified id.</div>
+    {% endif %}
+
+{% endblock %}
