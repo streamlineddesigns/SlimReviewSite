@@ -1,0 +1,45 @@
+{% extends "app.twig" %}
+
+{% block title %}Games Show{% endblock %}
+
+{% block content %}
+
+    {% if usedReplies[0] %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+
+        <div class="card bg-dark text-white text-center">
+            <div class="card-header">
+                <h2>Generated Reply Details</h2>
+                <hr>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ usedReplies[0].name }}</h5>
+                <div class="card-text">
+                    <label for="platform_name" class="form-label float-left">Platform</label>
+                    <input type="text" class="form-control" name="platform_name" value="{{ usedReplies[0].platform_name }}" disabled>
+                    <div class="form-group mt-3 text-left">
+                        <label class="form-label" for="game_name">Game</label>
+                        <input type="text" class="form-control" name="game_name" value="{{ usedReplies[0].game_name }}" disabled>
+                    </div>
+                    <div class="form-group mt-3 text-left">
+                        <label class="form-label" for="review_categories_name">Review Category</label>
+                        <input type="text" class="form-control" name="review_categories_name" value="{{ usedReplies[0].review_categories_name }}" disabled>
+                    </div>
+                    <div class="form-group mt-3 text-left">
+                        <label class="form-label" for="review_categories_name">Reply Text</label>
+                        <textarea rows="5" class="form-control" name="review_categories_name" disabled>{{ usedReplies[0].reply_text }}</textarea>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="card-footer">
+                <hr>
+                Created: {{ usedReplies[0].created_at|format_datetime() }}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">No generated reply found by specified id.</div>
+    {% endif %}
+
+{% endblock %}

@@ -7,10 +7,13 @@ function GenerateReplyApp() {
     this.instance;
 
     this.init = function () {
+        $("#generate-platform-div").show();
+
         this.platformChangeListener();
         this.gameChangeListener();
         this.categoryChangeListener();
         this.generateReplyButtonClickListener();
+        this.generateNextReplyButtonClickListener();
 
         if (GenerateReplyApp.instance == null) {
             GenerateReplyApp.instance = this;
@@ -38,6 +41,9 @@ function GenerateReplyApp() {
     this.categoryChangeListener = function() {
         $("#generate-review-category-select").change(function() {
             $("#generate-reply-button").show();
+            $("#generate-next-reply-button").hide();
+            $("#generate-reply-text-div").hide();
+            $("#confirm-generated-reply-button").hide();
         });
     }
 
@@ -45,8 +51,14 @@ function GenerateReplyApp() {
     this.generateReplyButtonClickListener = function() {
         $("#generate-reply-button").click(function() {
             GenerateReplyApp.instance.generateReply();
-            $("#generate-reply-text-div").show();
-            $("#confirm-generated-reply-button").show();
+        });
+    }
+
+    /* Handles events for when next reply button is clicked */
+    this.generateNextReplyButtonClickListener = function() {
+        $("#generate-next-reply-button").click(function() {
+            var previous_reply_id = $("#hidden_reply_id").val();
+            GenerateReplyApp.instance.generateReply(previous_reply_id);
         });
     }
 
@@ -66,7 +78,7 @@ function GenerateReplyApp() {
     }
 
     /* Where the magic happens. Generates a reply based on a set of conditions */
-    this.generateReply = function() {
+    this.generateReply = function(previous_reply_id = null) {
         var platform_id = parseInt($("#generate-platform-select").val());
         var game_id = parseInt($("#generate-game-select").val());
         var review_category_id = parseInt($("#generate-review-category-select").val());
@@ -78,14 +90,34 @@ function GenerateReplyApp() {
 
         $.ajax({
             type: "POST",
-            url: '/usedReplies/generateReply',
+            url: (previous_reply_id == null) ? '/usedReplies/generateReply' : `/usedReplies/generateReply/${previous_reply_id}`,
             data : JSON.stringify(data),
             contentType: 'application/json',
         }).done(function( data ) {
             var obj = JSON.parse(data);
-            console.log(obj);
-            $("#hidden_reply_id").val(obj.id);
-            $("#textarea_reply_text").text(obj.text);
+
+            if (obj != null) {
+                GenerateReplyApp.instance.generatedReplyFound(obj);
+            } else {
+                $("#generate-reply-text-div").hide();
+                if (swal != undefined && swal != null) {
+                    swal("Sorry!", "There was no reply data found. This usually means a reply for your specified review category has not been created yet!", "error");
+                } else {
+                    $("#no-reply-found-div").show();
+                }
+            }
         });
+    }
+
+    /* Called when generated reply data is found */
+    this.generatedReplyFound = function(obj)
+    {
+        $("#no-reply-found-div").hide();
+        $("#hidden_reply_id").val(obj.id);
+        $("#textarea_reply_text").text(obj.text);
+        $("#generate-reply-text-div").show();
+        $("#generate-reply-button").hide();
+        $("#confirm-generated-reply-button").show();
+        $("#generate-next-reply-button").show();
     }
 }

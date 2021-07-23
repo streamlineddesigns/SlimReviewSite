@@ -15,7 +15,7 @@ class UsedRepliesController extends Controller
     public function index($request, $response)
     {
         $view = 'usedReplies\index.twig';
-        $usedReplies = Models\UsedReplies::select('used_replies.id', 'used_replies.reply_id', 'platforms.name as platform_name', 'games.name as game_name', 'review_categories.name as review_categories_name', 'replies.text')
+        $usedReplies = Models\UsedReplies::select('used_replies.id', 'used_replies.reply_id', 'used_replies.created_at', 'platforms.name as platform_name', 'games.name as game_name', 'review_categories.name as review_categories_name', 'replies.text as reply_text')
                                          ->leftJoin('platform_used_replies', 'platform_used_replies.used_reply_id', '=', 'used_replies.id')
                                          ->leftJoin('platforms', 'platforms.id', '=', 'platform_used_replies.platform_id')
                                          ->leftJoin('game_used_replies', 'game_used_replies.used_reply_id', '=', 'used_replies.id')
@@ -45,10 +45,10 @@ class UsedRepliesController extends Controller
     public function store($request, $response)
     {
         $form_data = $request->getParsedBody();
-        $platform_id = $form_data['platform_id'];
-        $game_id = $form_data['game_id'];
-        $review_category_id = $form_data['review_category_id'];
-        $reply_id = $form_data['reply_id'];
+        $platform_id = (int) $form_data['platform_id'];
+        $game_id = (int) $form_data['game_id'];
+        $review_category_id = (int) $form_data['review_category_id'];
+        $reply_id = (int) $form_data['reply_id'];
 
         $used_replies = Models\UsedReplies::create([
             "reply_id" => $reply_id,
@@ -72,12 +72,31 @@ class UsedRepliesController extends Controller
                 "used_reply_id" => $used_reply_id,
             ]);
 
-            $this->container->get('flash')->addMessage('success', 'Successfully generate/confirm reply message!');
+            $this->container->get('flash')->addMessage('success', 'Successfully generated reply message!');
         } else {
-            $this->container->get('flash')->addMessage('error', 'Successfully generate/confirm reply message... Try again?');
+            $this->container->get('flash')->addMessage('error', 'Successfully generated reply message... Try again?');
         }
 
         return $response->withStatus(302)->withHeader('Location', '/usedReplies');
+    }
+
+    /*
+     * Read View
+     */
+    public function show($request, $response, $id)
+    {
+        $view = 'usedReplies\show.twig';
+        $usedReplies = Models\UsedReplies::select('used_replies.id', 'used_replies.reply_id', 'used_replies.created_at', 'platforms.name as platform_name', 'games.name as game_name', 'review_categories.name as review_categories_name', 'replies.text as reply_text')
+                                         ->leftJoin('platform_used_replies', 'platform_used_replies.used_reply_id', '=', 'used_replies.id')
+                                         ->leftJoin('platforms', 'platforms.id', '=', 'platform_used_replies.platform_id')
+                                         ->leftJoin('game_used_replies', 'game_used_replies.used_reply_id', '=', 'used_replies.id')
+                                         ->leftJoin('games', 'games.id', '=', 'game_used_replies.game_id')
+                                         ->leftJoin('review_category_used_replies', 'review_category_used_replies.used_reply_id', '=', 'used_replies.id')
+                                         ->leftJoin('review_categories', 'review_categories.id', '=', 'review_category_used_replies.review_category_id')
+                                         ->leftJoin('replies', 'replies.id', '=', 'used_replies.reply_id')
+                                         ->where('used_replies.id', '=', $id)->get();
+        
+        return $this->container->get('view')->render($response, $view, ['usedReplies' => $usedReplies]);
     }
     
 
@@ -97,7 +116,7 @@ class UsedRepliesController extends Controller
     /*
      * Where the magic happens - returns a reply
      */
-    public function generateReply($request, $response)
+    public function generateReply($request, $response, $previous_reply_id = null)
     {
         //get posted data
         $posted_data = $request->getParsedBody();
@@ -109,7 +128,7 @@ class UsedRepliesController extends Controller
         $reply = null;
 
         //get most recently used reply id by supplied parameters
-        $most_recent_used_reply_id = $this->getMostRecentUsedReplyID($platform_id, $game_id, $review_category_id);
+        $most_recent_used_reply_id = ($previous_reply_id == null) ? $this->getMostRecentUsedReplyID($platform_id, $game_id, $review_category_id) : $previous_reply_id;
 
         //if a result was returned, get the next reply to use 
         if ($most_recent_used_reply_id != null) {
@@ -134,7 +153,7 @@ class UsedRepliesController extends Controller
                                                        ->where('game_used_replies.game_id', '=', $game_id)
                                                        ->where('review_category_used_replies.review_category_id', '=', $review_category_id)->latest("used_replies.created_at")->first();
         if (isset($most_recent_used_reply_id['reply_id'])) {
-            return $most_recent_used_reply_id['reply_id'];
+            return (int) $most_recent_used_reply_id['reply_id'];
         }
         return null;
     }
@@ -167,9 +186,9 @@ class UsedRepliesController extends Controller
         
         if ($used_reply != null) {
             $used_reply->delete();
-            $this->container->get('flash')->addMessage('success', 'Successfully deleted confirmed reply data!');
+            $this->container->get('flash')->addMessage('success', 'Successfully deleted generated reply data!');
         } else {
-            $this->container->get('flash')->addMessage('error', 'Successfully deleted confirmed reply data... Try again?');
+            $this->container->get('flash')->addMessage('error', 'Successfully deleted generated reply data... Try again?');
         }
 
         return $response->withStatus(302)->withHeader('Location', '/usedReplies');

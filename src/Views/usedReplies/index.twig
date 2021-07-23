@@ -48,14 +48,14 @@
                         {{ usedReply.review_categories_name }}
                     </td>
                     <td class="mobile-td">
-                        {{ usedReply.text }}
+                        {{ usedReply.reply_text }}
                     </td>
                     <td class="mobile-td text-center">
                         {{ usedReply.created_at|date("m/d/Y") }}
                     </td>
                     <td class="mobile-td text-center">
                         <a href="usedReplies/{{ usedReply.id }}" class="btn btn-secondary m-1"><i class="bi bi-eye"></i><span class="mobile-hidden hidden"> View</span></a>
-                        <a href="javascript:FunApp.deleteResource({{ usedReply.id }}, 'Used Reply', 'delete-form-{{ usedReply.id }}')" class="btn btn-danger m-1"><i class="bi bi-trash"></i><span class="mobile-hidden hidden"> Delete</span></a>
+                        <a href="javascript:FunApp.deleteResource({{ usedReply.id }}, 'Generated Reply', 'delete-form-{{ usedReply.id }}')" class="btn btn-danger m-1"><i class="bi bi-trash"></i><span class="mobile-hidden hidden"> Delete</span></a>
                         <form method="post" action="/usedReplies/{{ usedReply.id }}/delete" id="delete-form-{{ usedReply.id }}"></form>
                     </td>
                 </tr>

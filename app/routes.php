@@ -56,10 +56,11 @@ return function (App $app) {
         $group->get('', [Controllers\UsedRepliesController::class, 'index']);
         $group->get('/create', [Controllers\UsedRepliesController::class, 'create']);
         $group->post('', [Controllers\UsedRepliesController::class, 'store']);
-        //$group->get('/{id}', [Controllers\UsedRepliesController::class, 'show']);
+        $group->get('/{id}', [Controllers\UsedRepliesController::class, 'show']);
         $group->post('/{id}/delete', [Controllers\UsedRepliesController::class, 'destroy']);
 
         $group->get('/getGamesByPlatform/{id}', [Controllers\UsedRepliesController::class, 'getGamesByPlatform']);
         $group->post('/generateReply', [Controllers\UsedRepliesController::class, 'generateReply']);
+        $group->post('/generateReply/{previous_reply_id}', [Controllers\UsedRepliesController::class, 'generateReply']);
     });
 };

@@ -1,5 +1,6 @@
 {% extends "app.twig" %}
 
+{% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
 {% block title %}Games Create{% endblock %}
 
 {% block content %}
@@ -15,7 +16,7 @@
             <div class="card-body">
                 <div class="card-text">
 
-                    <div class="form-group text-left">
+                    <div class="form-group text-left hidden" id="generate-platform-div">
                         <label class="form-label" for="multiSelect">Platform</label>
                         <select class="form-select" id="generate-platform-select" name="platform_id">
                             <option selected>Select Platform</option>
@@ -61,9 +62,15 @@
                         <input type="hidden" class="form-control" name="reply_id" id="hidden_reply_id">
                     </div>
 
+                    <div class="form-group mt-3 text-left hidden" id="no-reply-found-div">
+                        <label for="Text" class="form-label float-left">Sorry!</label>
+                        <textarea rows="5" class="form-control" disabled>There was no reply data found for your specified parameters. This usually means a reply type for your specified category has not been created yet!</textarea>
+                    </div>
+
                 </div>
                 
                 <a id="generate-reply-button" type="submit" class="btn btn-primary float-left mt-5 hidden"><i class="bi bi-plus"></i> Generate</a>
+                <a id="generate-next-reply-button" type="submit" class="btn btn-success float-left mt-5 hidden"><i class="bi bi-chevron-right"></i> Next</a>
                 <button id="confirm-generated-reply-button" type="submit" class="btn btn-primary float-right mt-5 hidden"><i class="bi bi-sd-card"></i> Confirm</button>
 
             </div>
