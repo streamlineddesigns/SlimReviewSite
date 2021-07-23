@@ -6,7 +6,7 @@ Slim - The Router
 Twig - The CRUD Views  
 Flash - Used for success/failure messages  
 intl-extra - Used for human readable datetime formats  
-Angular - Front End Javascript Framework  
+jQuery - Front End Javascript Library  
 Bootstrap - Front End Responsive libary  
 Bootstrap Tables - Easy table sorting  
 Sweet Alerts - Better looking errors/message popups  

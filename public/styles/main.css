@@ -79,6 +79,10 @@ html, body {
     max-width: 250px;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px)  {
     .mobile-td {

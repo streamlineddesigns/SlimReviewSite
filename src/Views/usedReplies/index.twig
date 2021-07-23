@@ -1,0 +1,70 @@
+{% extends "app.twig" %}
+
+{% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
+{% block title %}Used Replies Index{% endblock %}
+
+{% block content %}
+    
+    {% if hasMessages() %}
+        {% if successMessage() %}
+            <script>swal("Success!", "{{successMessage()}}", "success");</script>
+        {% elseif errorMessage() %}
+            <script>swal("Error!", "{{errorMessage()}}", "error");</script>
+        {% endif %}
+    {% endif %}
+
+    <a href="usedReplies/create" class="btn btn-success mb-5 float-right">
+        <i class="bi bi-plus"></i>
+        <span class="mobile-hidden"> Generate</span>
+    </a>
+
+    {% if usedReplies %}
+        <table class="table table-striped table-dark table-bordered table-responsive" data-toggle="table" data-pagination="true" data-search="true">
+            <thead>
+                <tr>
+                    <th class="" data-sortable="true">ID</th>
+                    <th data-sortable="true">Platform</th>
+                    <th data-sortable="true">Game</th>
+                    <th data-sortable="true">Category</th>
+                    <th>Reply</th>
+                    <th class="text-center" data-sortable="true">Created</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for usedReply in usedReplies %}
+
+                <tr>
+                    <td class="mobile-td">
+                        {{ usedReply.id }}
+                    </td>
+                    <td class="mobile-td">
+                        {{ usedReply.platform_name }}
+                    </td>
+                    <td class="mobile-td">
+                        {{ usedReply.game_name }}
+                    </td>
+                    <td class="mobile-td">
+                        {{ usedReply.review_categories_name }}
+                    </td>
+                    <td class="mobile-td">
+                        {{ usedReply.text }}
+                    </td>
+                    <td class="mobile-td text-center">
+                        {{ usedReply.created_at|date("m/d/Y") }}
+                    </td>
+                    <td class="mobile-td text-center">
+                        <a href="usedReplies/{{ usedReply.id }}" class="btn btn-secondary m-1"><i class="bi bi-eye"></i><span class="mobile-hidden hidden"> View</span></a>
+                        <a href="javascript:FunApp.deleteResource({{ usedReply.id }}, 'Used Reply', 'delete-form-{{ usedReply.id }}')" class="btn btn-danger m-1"><i class="bi bi-trash"></i><span class="mobile-hidden hidden"> Delete</span></a>
+                        <form method="post" action="/usedReplies/{{ usedReply.id }}/delete" id="delete-form-{{ usedReply.id }}"></form>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>No Used Replies found.</div>
+    {% endif %}
+
+{% endblock %}

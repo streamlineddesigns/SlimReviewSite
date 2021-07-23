@@ -50,4 +50,16 @@ return function (App $app) {
         $group->post('/{id}', [Controllers\ReplyController::class, 'update']);
         $group->post('/{id}/delete', [Controllers\ReplyController::class, 'destroy']);
     });
+
+    /* Generate routes */
+    $app->group('/usedReplies', function (Group $group) {
+        $group->get('', [Controllers\UsedRepliesController::class, 'index']);
+        $group->get('/create', [Controllers\UsedRepliesController::class, 'create']);
+        $group->post('', [Controllers\UsedRepliesController::class, 'store']);
+        //$group->get('/{id}', [Controllers\UsedRepliesController::class, 'show']);
+        $group->post('/{id}/delete', [Controllers\UsedRepliesController::class, 'destroy']);
+
+        $group->get('/getGamesByPlatform/{id}', [Controllers\UsedRepliesController::class, 'getGamesByPlatform']);
+        $group->post('/generateReply', [Controllers\UsedRepliesController::class, 'generateReply']);
+    });
 };

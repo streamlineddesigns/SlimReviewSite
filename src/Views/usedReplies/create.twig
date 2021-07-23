@@ -1,0 +1,77 @@
+{% extends "app.twig" %}
+
+{% block title %}Games Create{% endblock %}
+
+{% block content %}
+
+    <a href="javascript:FunApp.backButtonClick()" class="btn btn-success mb-5"><i class="bi bi-chevron-left"></i> Back</a>
+
+    <form method="post" action="/usedReplies">
+        <div class="card bg-dark text-white text-center">
+            <div class="card-header">
+                <h2>Generate Reply</h2>
+                <hr>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+
+                    <div class="form-group text-left">
+                        <label class="form-label" for="multiSelect">Platform</label>
+                        <select class="form-select" id="generate-platform-select" name="platform_id">
+                            <option selected>Select Platform</option>
+                            {% if platforms[0] %}
+                                {% for platform in platforms %}
+                                    <option value="{{platform.id}}">{{platform.name}}</option>
+                                {% endfor %}
+                            {% else %}
+                                <div class="p-2">
+                                    <a href="{{url('/platforms/create')}}" >Looks like some platforms need to be created... Click here to create.</a>
+                                </div>
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-3 text-left hidden" id="generate-game-div">
+                        <label class="form-label" for="multiSelect">Game</label>
+                        <select class="form-select" id="generate-game-select" name="game_id">
+                            <option selected>Select Game</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-3 text-left hidden" id="generate-review-category-div">
+                        <label class="form-label" for="multiSelect">Review Category</label>
+                        <select class="form-select" id="generate-review-category-select" name="review_category_id">
+                            <option selected>Select Review Category</option>
+                            {% if reviewCategories[0] %}
+                                {% for reviewCategory in reviewCategories %}
+                                    <option value="{{reviewCategory.id}}">{{reviewCategory.name}}</option>
+                                {% endfor %}
+                            {% else %}
+                                <div class="p-2">
+                                    <a href="{{url('/reviewCategories/create')}}" >Looks like some Review Categories need to be created... Click here to create.</a>
+                                </div>
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-3 text-left hidden" id="generate-reply-text-div">
+                        <label for="Text" class="form-label float-left">Reply Text</label>
+                        <textarea rows="5" class="form-control" placeholder="Reply Text" id="textarea_reply_text"></textarea>
+                        <input type="hidden" class="form-control" name="reply_id" id="hidden_reply_id">
+                    </div>
+
+                </div>
+                
+                <a id="generate-reply-button" type="submit" class="btn btn-primary float-left mt-5 hidden"><i class="bi bi-plus"></i> Generate</a>
+                <button id="confirm-generated-reply-button" type="submit" class="btn btn-primary float-right mt-5 hidden"><i class="bi bi-sd-card"></i> Confirm</button>
+
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+{% block bodyAssets %}<script src="{{url('/scripts/generate.js')}}"></script>{% endblock %}
