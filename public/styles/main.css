@@ -83,6 +83,12 @@ html, body {
     display: none;
 }
 
+#copy-to-clipboard-button {
+    position: absolute;
+    right: 0px;
+    top: -10px;
+}
+
 /* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px)  {
     .mobile-td {

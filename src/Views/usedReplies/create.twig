@@ -58,7 +58,10 @@
 
                     <div class="form-group mt-3 text-left hidden" id="generate-reply-text-div">
                         <label for="Text" class="form-label float-left">Reply Text</label>
-                        <textarea rows="5" class="form-control" placeholder="Reply Text" id="textarea_reply_text"></textarea>
+                        <div class="position-relative">
+                            <a class="btn btn-secondary" id="copy-to-clipboard-button"><i class="bi bi-clipboard"></i><span> Copy</span></a>
+                        </div>
+                        <textarea rows="5" class="form-control" placeholder="Reply Text" id="textarea_reply_text" readonly></textarea>
                         <input type="hidden" class="form-control" name="reply_id" id="hidden_reply_id">
                     </div>
 
