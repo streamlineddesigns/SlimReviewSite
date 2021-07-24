@@ -6,7 +6,15 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use App\Http\Controllers;
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
 return function (App $app) {
+    /* Home page */
+    $app->get('/', function(Response $response, Request $request) {
+        return $response->withStatus(302)->withHeader('Location', '/platforms');
+    });
+
     /* Platforms routes */
     $app->group('/platforms', function (Group $group) {
         $group->get('', [Controllers\PlatformController::class, 'index']);
