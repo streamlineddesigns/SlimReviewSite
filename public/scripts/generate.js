@@ -25,6 +25,7 @@ function GenerateReplyApp() {
         $("#generate-platform-select").change(function() {
             var platform_id = parseInt($(this).val());
             if (Number.isInteger(platform_id)) {
+                GenerateReplyApp.instance.restartGenerateProcess(false);
                 GenerateReplyApp.instance.getGamesByPlatform(platform_id);
             }
         });
@@ -34,16 +35,14 @@ function GenerateReplyApp() {
     this.gameChangeListener = function() {
         $("#generate-game-select").change(function() {
             $("#generate-review-category-div").show();
+            GenerateReplyApp.instance.restartGenerateProcess(true);
         });
     }
 
     /* Handles events for when category select changes */
     this.categoryChangeListener = function() {
         $("#generate-review-category-select").change(function() {
-            $("#generate-reply-button").show();
-            $("#generate-next-reply-button").hide();
-            $("#generate-reply-text-div").hide();
-            $("#confirm-generated-reply-button").hide();
+            GenerateReplyApp.instance.restartGenerateProcess(true);
         });
     }
 
@@ -107,6 +106,14 @@ function GenerateReplyApp() {
                 }
             }
         });
+    }
+    
+    /* Called to reset the forms & buttons in the generation process */
+    this.restartGenerateProcess = function(bCanShowGenerateButton) {
+        if (bCanShowGenerateButton) $("#generate-reply-button").show();
+        $("#generate-next-reply-button").hide();
+        $("#generate-reply-text-div").hide();
+        $("#confirm-generated-reply-button").hide();
     }
 
     /* Called when generated reply data is found */

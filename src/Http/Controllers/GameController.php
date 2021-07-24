@@ -17,7 +17,7 @@ class GameController extends Controller
     public function index($request, $response)
     {
         $view = 'games\index.twig';
-        $games = Games::all();
+        $games = Games::orderByDesc('id')->get();
         return $this->container->get('view')->render($response, $view, ['games' => $games]);
     }
 

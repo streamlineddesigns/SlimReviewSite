@@ -1,7 +1,7 @@
 {% extends "app.twig" %}
 
 {% block headAssets %}<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>{% endblock %}
-{% block title %}Games Create{% endblock %}
+{% block title %}Generated Replies Create{% endblock %}
 
 {% block content %}
 
@@ -18,7 +18,7 @@
 
                     <div class="form-group text-left hidden" id="generate-platform-div">
                         <label class="form-label" for="multiSelect">Platform</label>
-                        <select class="form-select" id="generate-platform-select" name="platform_id">
+                        <select class="form-select" id="generate-platform-select" name="platform_id" required>
                             <option selected>Select Platform</option>
                             {% if platforms[0] %}
                                 {% for platform in platforms %}
@@ -34,7 +34,7 @@
 
                     <div class="form-group mt-3 text-left hidden" id="generate-game-div">
                         <label class="form-label" for="multiSelect">Game</label>
-                        <select class="form-select" id="generate-game-select" name="game_id">
+                        <select class="form-select" id="generate-game-select" name="game_id" required>
                             <option selected>Select Game</option>
 
                         </select>
@@ -42,7 +42,7 @@
 
                     <div class="form-group mt-3 text-left hidden" id="generate-review-category-div">
                         <label class="form-label" for="multiSelect">Review Category</label>
-                        <select class="form-select" id="generate-review-category-select" name="review_category_id">
+                        <select class="form-select" id="generate-review-category-select" name="review_category_id" required>
                             <option selected>Select Review Category</option>
                             {% if reviewCategories[0] %}
                                 {% for reviewCategory in reviewCategories %}

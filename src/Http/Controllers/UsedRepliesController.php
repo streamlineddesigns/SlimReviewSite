@@ -22,7 +22,7 @@ class UsedRepliesController extends Controller
                                          ->leftJoin('games', 'games.id', '=', 'game_used_replies.game_id')
                                          ->leftJoin('review_category_used_replies', 'review_category_used_replies.used_reply_id', '=', 'used_replies.id')
                                          ->leftJoin('review_categories', 'review_categories.id', '=', 'review_category_used_replies.review_category_id')
-                                         ->leftJoin('replies', 'replies.id', '=', 'used_replies.reply_id')->get();
+                                         ->leftJoin('replies', 'replies.id', '=', 'used_replies.reply_id')->orderByDesc('used_replies.id')->get();
         
         return $this->container->get('view')->render($response, $view, ['usedReplies' => $usedReplies]);
     }

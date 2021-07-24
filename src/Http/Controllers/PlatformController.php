@@ -15,7 +15,7 @@ class PlatformController extends Controller
     public function index($request, $response)
     {
         $view = 'platforms\index.twig';
-        $platforms = Platforms::all();
+        $platforms = Platforms::orderByDesc('id')->get();
         return $this->container->get('view')->render($response, $view, ['platforms' => $platforms]);
     }
 

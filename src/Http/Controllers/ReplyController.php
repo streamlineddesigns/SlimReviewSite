@@ -17,7 +17,7 @@ class ReplyController extends Controller
     public function index($request, $response)
     {
         $view = 'replies\index.twig';
-        $replies = Replies::all();
+        $replies = Replies::orderByDesc('id')->get();
         $reply_review_categories = ReplyReviewCategories::select('reply_review_categories.reply_id', 'review_categories.name')->leftJoin('review_categories', 'review_categories.id', '=', 'reply_review_categories.review_category_id')->get()->toArray();
         
         $sorted_reply_review_categories = array();

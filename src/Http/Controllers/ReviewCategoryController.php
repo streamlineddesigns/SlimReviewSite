@@ -15,7 +15,7 @@ class ReviewCategoryController extends Controller
     public function index($request, $response)
     {
         $view = 'reviewCategories\index.twig';
-        $reviewCategories = ReviewCategories::all();
+        $reviewCategories = ReviewCategories::orderByDesc('id')->get();
         return $this->container->get('view')->render($response, $view, ['reviewCategories' => $reviewCategories]);
     }
 

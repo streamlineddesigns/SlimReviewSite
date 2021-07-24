@@ -33,7 +33,28 @@ CREATE TABLE `game_platforms` (
   KEY `game_platforms_platform_id_foreign` (`platform_id`),
   CONSTRAINT `game_platforms_game_id_foreign` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`) ON DELETE CASCADE,
   CONSTRAINT `game_platforms_platform_id_foreign` FOREIGN KEY (`platform_id`) REFERENCES `platforms` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `game_used_replies`
+--
+
+DROP TABLE IF EXISTS `game_used_replies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `game_used_replies` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `game_id` int(10) unsigned NOT NULL,
+  `used_reply_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `game_used_replies_game_id_foreign` (`game_id`),
+  KEY `game_used_replies_used_reply_id_foreign` (`used_reply_id`),
+  CONSTRAINT `game_used_replies_game_id_foreign` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `game_used_replies_used_reply_id_foreign` FOREIGN KEY (`used_reply_id`) REFERENCES `used_replies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +70,28 @@ CREATE TABLE `games` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `platform_used_replies`
+--
+
+DROP TABLE IF EXISTS `platform_used_replies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `platform_used_replies` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `platform_id` int(10) unsigned NOT NULL,
+  `used_reply_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `platform_used_replies_platform_id_foreign` (`platform_id`),
+  KEY `platform_used_replies_used_reply_id_foreign` (`used_reply_id`),
+  CONSTRAINT `platform_used_replies_platform_id_foreign` FOREIGN KEY (`platform_id`) REFERENCES `platforms` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `platform_used_replies_used_reply_id_foreign` FOREIGN KEY (`used_reply_id`) REFERENCES `used_replies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +107,7 @@ CREATE TABLE `platforms` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +123,7 @@ CREATE TABLE `replies` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +144,7 @@ CREATE TABLE `reply_review_categories` (
   KEY `reply_review_categories_review_category_id_foreign` (`review_category_id`),
   CONSTRAINT `reply_review_categories_reply_id_foreign` FOREIGN KEY (`reply_id`) REFERENCES `replies` (`id`) ON DELETE CASCADE,
   CONSTRAINT `reply_review_categories_review_category_id_foreign` FOREIGN KEY (`review_category_id`) REFERENCES `review_categories` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +161,46 @@ CREATE TABLE `review_categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `review_category_used_replies`
+--
+
+DROP TABLE IF EXISTS `review_category_used_replies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `review_category_used_replies` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `review_category_id` int(10) unsigned NOT NULL,
+  `used_reply_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `review_category_used_replies_review_category_id_foreign` (`review_category_id`),
+  KEY `review_category_used_replies_used_reply_id_foreign` (`used_reply_id`),
+  CONSTRAINT `review_category_used_replies_review_category_id_foreign` FOREIGN KEY (`review_category_id`) REFERENCES `review_categories` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `review_category_used_replies_used_reply_id_foreign` FOREIGN KEY (`used_reply_id`) REFERENCES `used_replies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `used_replies`
+--
+
+DROP TABLE IF EXISTS `used_replies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `used_replies` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `reply_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `used_replies_reply_id_foreign` (`reply_id`),
+  CONSTRAINT `used_replies_reply_id_foreign` FOREIGN KEY (`reply_id`) REFERENCES `replies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -131,4 +212,4 @@ CREATE TABLE `review_categories` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-22 16:54:57
+-- Dump completed on 2021-07-24  1:52:56
