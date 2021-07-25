@@ -22,7 +22,7 @@
                     <th class="mobile-hidden" data-sortable="true">ID</th>
                     <th data-sortable="true">Name</th>
                     <th class="mobile-hidden text-center" data-sortable="true">Created</th>
-                    <th></th>
+                    <th class="actions"></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,13 +32,13 @@
                     <td class="mobile-hidden">
                         {{ game.id }}
                     </td>
-                    <td class="mobile-td">
+                    <td class="">
                         {{ game.name }}
                     </td>
                     <td class="mobile-hidden text-center">
                         {{ game.created_at|date("m/d/Y") }}
                     </td>
-                    <td class="text-center">
+                    <td class="mobile-td text-center">
                         <a href="games/{{ game.id }}/edit" class="btn btn-primary"><i class="bi bi-pencil"></i><span class="mobile-hidden"> Edit</span></a>
                         <a href="games/{{ game.id }}" class="btn btn-secondary"><i class="bi bi-eye"></i><span class="mobile-hidden"> View</span></a>
                         <a href="javascript:FunApp.deleteResource({{ game.id }}, 'game', 'delete-form-{{ game.id }}')" class="btn btn-danger"><i class="bi bi-trash"></i><span class="mobile-hidden"> Delete</span></a>

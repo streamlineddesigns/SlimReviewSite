@@ -89,10 +89,27 @@ html, body {
     top: -10px;
 }
 
+.actions {
+    width: 275px;
+}
+
 /* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px)  {
     .mobile-td {
         width: 100px;
+    }
+    .mobile-td:last-of-type {
+        width: 0px;
+    }
+    .mobile-td:last-of-type a{
+        margin-bottom: 4px;
+    }
+    .mobile-td:last-of-type a:last-of-type{
+        margin-bottom: 0px;
+    }
+    .desktop-td {
+        max-width: 160px;
+        overflow-x: hidden;
     }
     .mobile-ellipsis {
         white-space: nowrap;
@@ -102,6 +119,9 @@ html, body {
     }
     .search-input {
         max-width: 150px;
+    }
+    .actions {
+        width: initial !important;
     }
 }
 
@@ -116,5 +136,8 @@ html, body {
 @media (max-width: 992px)  {
     span.mobile-hidden {
         display: none;
+    }
+    .actions {
+        max-width: 155px !important;
     }
 }
