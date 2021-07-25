@@ -119,7 +119,7 @@ html, body {
         max-width: 150px;
     }
     .actions {
-        width: initial !important;
+        width: 0px !important;
     }
 }
 
