@@ -94,17 +94,19 @@ html, body {
 }
 
 /* Small devices (landscape phones, 576px and below) */
-@media (max-width: 650px)  {
-    tr td.mobile-td {
+@media (max-width: 576px)  {
+    .primary-mobile-td {
+        width: 100%;
+    }
+    .mobile-td {
         width: 0px !important;
     }
-    /*
     .mobile-td:last-of-type a{
         margin-bottom: 8px;
     }
     .mobile-td:last-of-type a:last-of-type{
         margin-bottom: 0px;
-    }*/
+    }
     .desktop-td {
         max-width: 160px;
         overflow-x: hidden;
@@ -119,7 +121,7 @@ html, body {
         max-width: 150px;
     }
     .actions {
-        width: 0px !important;
+        width: initial !important;
     }
 }
 
