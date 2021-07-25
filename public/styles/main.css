@@ -96,17 +96,15 @@ html, body {
 /* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px)  {
     .mobile-td {
-        width: 100px;
+        width: 0px !important;
     }
-    .mobile-td:last-of-type {
-        width: 0px;
-    }
+    /*
     .mobile-td:last-of-type a{
         margin-bottom: 8px;
     }
     .mobile-td:last-of-type a:last-of-type{
         margin-bottom: 0px;
-    }
+    }*/
     .desktop-td {
         max-width: 160px;
         overflow-x: hidden;
