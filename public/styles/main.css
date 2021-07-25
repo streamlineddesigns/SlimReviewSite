@@ -102,7 +102,7 @@ html, body {
         width: 0px;
     }
     .mobile-td:last-of-type a{
-        margin-bottom: 4px;
+        margin-bottom: 8px;
     }
     .mobile-td:last-of-type a:last-of-type{
         margin-bottom: 0px;
