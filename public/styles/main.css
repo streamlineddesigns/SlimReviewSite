@@ -94,7 +94,7 @@ html, body {
 }
 
 /* Small devices (landscape phones, 576px and below) */
-@media (max-width: 576px)  {
+@media (max-width: 650px)  {
     tr td.mobile-td {
         width: 0px !important;
     }
