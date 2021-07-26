@@ -19,7 +19,7 @@
                     <label for="text" class="form-label float-left">Reply Text</label>
                     <textarea rows="5" type="text" class="form-control" name="text" disabled>{{ reply[0].text }}</textarea>
                     <div class="form-group mt-5 text-left">
-                        <label class="form-label" for="viewMultiSelect">Select Review Category</label>
+                        <label class="form-label" for="viewMultiSelect">Review Category</label>
                         <div class="form-control select-faker" id="viewMultiSelect">
                             {% if reviewCategories %}
                                 {% for reviewCategory in reviewCategories %}
