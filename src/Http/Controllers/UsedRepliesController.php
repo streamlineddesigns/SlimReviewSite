@@ -188,72 +188,9 @@ class UsedRepliesController extends Controller
             $used_reply->delete();
             $this->container->get('flash')->addMessage('success', 'Successfully deleted generated reply data!');
         } else {
-            $this->container->get('flash')->addMessage('error', 'Successfully deleted generated reply data... Try again?');
+            $this->container->get('flash')->addMessage('error', 'Couldn\'t delete generated reply data properly... Try again?');
         }
 
         return $response->withStatus(302)->withHeader('Location', '/usedReplies');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-select min(reply_review_categories.reply_id) from reply_review_categories where reply_review_categories.review_category_id = $review_category_id;
- */
-
-/*
-SELECT MAX(used_replies.reply_id)
-FROM used_replies
-LEFT JOIN platform_used_replies ON platform_used_replies.used_reply_id = used_replies.reply_id
-LEFT JOIN game_used_replies ON game_used_replies.used_reply_id = used_replies.reply_id
-LEFT JOIN review_category_used_replies ON review_category_used_replies.used_reply_id = used_replies.reply_id
-WHERE platform_used_replies.platform_id = 1
-AND game_used_replies.game_id = 1
-AND review_category_used_replies.review_category_id = 1;
-*/
-
-    /*
-    1. Select Platform
-    2. Select Game
-    3. Select Category
-    4. Click Generate
-    5. Click Confirm, or click get another reply
-    */
-    /*
-            SELECT used_replies.reply_id, platforms.name, games.name, review_categories.name, replies.text
-            FROM used_replies
-
-            LEFT JOIN platform_used_replies on platform_used_replies.used_reply_id = used_replies.reply_id
-            LEFT JOIN platforms on platforms.id = platform_used_replies.platform_id
-
-
-            LEFT JOIN game_used_replies on game_used_replies.used_reply_id = used_replies.reply_id
-            LEFT JOIN games on games.id = game_used_replies.game_id
-
-            LEFT JOIN review_category_used_replies on review_category_used_replies.used_reply_id = used_replies.reply_id
-            LEFT JOIN review_categories on review_categories.id = review_category_used_replies.review_category_id
-
-            LEFT JOIN replies on replies.id = used_replies.reply_id;  
-        */
