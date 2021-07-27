@@ -17,9 +17,8 @@
                 <div class="card-text">
 
                     <div class="form-group text-left hidden" id="generate-platform-div">
-                        <label class="form-label" for="multiSelect">Platform</label>
-                        <select class="form-select" id="generate-platform-select" name="platform_id" required>
-                            <option selected>Select Platform</option>
+                        <label class="form-label" for="platform_id">Platform</label>
+                        <div class="form-control select-faker" id="multiSelect" name="platform_id" data-table-string="platform_id" required>
                             {% if platforms[0] %}
                                 {% for platform in platforms %}
                                     <option value="{{platform.id}}">{{platform.name}}</option>
@@ -29,11 +28,11 @@
                                     <a href="{{url('/platforms/create')}}" >Looks like some platforms need to be created... Click here to create.</a>
                                 </div>
                             {% endif %}
-                        </select>
+                        </div>
                     </div>
 
                     <div class="form-group mt-3 text-left hidden" id="generate-game-div">
-                        <label class="form-label" for="multiSelect">Game</label>
+                        <label class="form-label" for="game_id">Game</label>
                         <select class="form-select" id="generate-game-select" name="game_id" required>
                             <option selected>Select Game</option>
 
@@ -41,19 +40,19 @@
                     </div>
 
                     <div class="form-group mt-3 text-left hidden" id="generate-review-category-div">
-                        <label class="form-label" for="multiSelect">Review Category</label>
-                        <select class="form-select" id="generate-review-category-select" name="review_category_id" required>
-                            <option selected>Select Review Category</option>
+                        <label class="form-label" for="review_category_id">Review Category</label>
+                        <div class="row" id="generate-review-category-select" required>
                             {% if reviewCategories[0] %}
                                 {% for reviewCategory in reviewCategories %}
-                                    <option value="{{reviewCategory.id}}">{{reviewCategory.name}}</option>
+                                    <div class="col-lg-3 col-table review_category_option" value="{{reviewCategory.id}}">{{reviewCategory.name}}</div>
                                 {% endfor %}
                             {% else %}
                                 <div class="p-2">
                                     <a href="{{url('/reviewCategories/create')}}" >Looks like some Review Categories need to be created... Click here to create.</a>
                                 </div>
                             {% endif %}
-                        </select>
+                            <input type="hidden" name="review_category_id" id="review_category_id" >
+                        </div>
                     </div>
 
                     <div class="form-group mt-3 text-left hidden" id="generate-reply-text-div">

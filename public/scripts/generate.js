@@ -23,12 +23,33 @@ function GenerateReplyApp() {
     
     /* Handles events for when platform select changes */
     this.platformChangeListener = function() {
-        $("#generate-platform-select").change(function() {
-            var platform_id = parseInt($(this).val());
-            if (Number.isInteger(platform_id)) {
-                GenerateReplyApp.instance.restartGenerateProcess(false);
-                GenerateReplyApp.instance.getGamesByPlatform(platform_id);
+        $("option").click(function() {
+
+            var selected = this;    
+        
+            if ($(".selected-option").length > 1) {
+                $(".selected-option").removeClass("selected-option");
             }
+        
+            $(selected).addClass("selected-option");
+        });
+
+        var element = document.querySelector('#platform_id');
+
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type == "attributes") {
+                    let platform_id = parseInt($("#platform_id").val());
+
+                    if (Number.isInteger(platform_id)) {
+                        GenerateReplyApp.instance.restartGenerateProcess(false);
+                        GenerateReplyApp.instance.getGamesByPlatform(platform_id);
+                    }
+                }
+            });
+        });
+        observer.observe(element, {
+            attributes: true //configure it to listen to attribute changes
         });
     }
 
@@ -42,7 +63,11 @@ function GenerateReplyApp() {
 
     /* Handles events for when category select changes */
     this.categoryChangeListener = function() {
-        $("#generate-review-category-select").change(function() {
+        $(".review_category_option").click(function() {
+            $(".col-table-element-selected").removeClass("col-table-element-selected");
+            $(this).addClass("col-table-element-selected");
+            let id = parseInt($(".col-table-element-selected").attr("value"));
+            $("#review_category_id").val(id);
             GenerateReplyApp.instance.restartGenerateProcess(true);
         });
     }
@@ -79,9 +104,9 @@ function GenerateReplyApp() {
 
     /* Where the magic happens. Generates a reply based on a set of conditions */
     this.generateReply = function(previous_reply_id = null) {
-        var platform_id = parseInt($("#generate-platform-select").val());
+        var platform_id = parseInt($("#platform_id").val());
         var game_id = parseInt($("#generate-game-select").val());
-        var review_category_id = parseInt($("#generate-review-category-select").val());
+        var review_category_id = parseInt($("#review_category_id").attr("value"));
 
         var data = new Object();
         data.platform_id = platform_id;

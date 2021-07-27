@@ -1,5 +1,6 @@
 $(document).ready(function() {
     FunApp = new FunApp();
+    FunApp.initContent();
     FunApp.initActiveNavBarLink();
     FunApp.initMultiSelect();
     FunApp.initBootstrapTables();
@@ -12,6 +13,16 @@ function FunApp() {
     this.multiSelectValues;
     this.hiddenInput;
     this.inputFormCode;
+
+    this.initContent = function() {
+        $("#content").ready(function() {
+            if ($("#content").find(".bootstrap-table").length !== 0) {
+                //indexs have tables
+            } else {
+                $("#content").addClass("smaller-container");
+            }
+        });
+    }
 
     this.initActiveNavBarLink = function() {
         var first = $(location).attr('pathname');

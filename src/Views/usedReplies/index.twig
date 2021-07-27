@@ -22,7 +22,7 @@
         <table class="table table-striped table-dark table-bordered table-responsive" data-toggle="table" data-pagination="true" data-search="true">
             <thead>
                 <tr>
-                    <th class="" data-sortable="true">ID</th>
+                    <th class="mobile-hidden" data-sortable="true">ID</th>
                     <th data-sortable="true">Platform</th>
                     <th data-sortable="true">Game</th>
                     <th data-sortable="true">Category</th>
@@ -35,7 +35,7 @@
             {% for usedReply in usedReplies %}
 
                 <tr>
-                    <td class="mobile-td">
+                    <td class="mobile-hidden mobile-td">
                         {{ usedReply.id }}
                     </td>
                     <td class="mobile-td">

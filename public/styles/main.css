@@ -93,6 +93,32 @@ html, body {
     width: 275px;
 }
 
+.smaller-container {
+    max-width: 720px !important;
+}
+
+#generate-review-category-select {
+    padding: 10px;
+}
+
+.col-table {
+    flex: 0 0 auto;
+    width: 25%;
+    padding: 10px;
+    justify-content: end;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.col-table-element-selected {
+    background-color: white;
+    color: black;
+}
+
 /* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px)  {
     .primary-mobile-td {
@@ -139,5 +165,14 @@ html, body {
     }
     .actions {
         max-width: 155px !important;
+    }
+    .smaller-container {
+        max-width: 720px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .smaller-container {
+        max-width: 960px !important;
     }
 }
