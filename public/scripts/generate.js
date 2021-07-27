@@ -55,8 +55,12 @@ function GenerateReplyApp() {
 
     /* Handles events for when game select changes */
     this.gameChangeListener = function() {
-        $("#generate-game-select").change(function() {
+        $("#generate-game-select").find("option").click(function() {
             $("#generate-review-category-div").show();
+            $("#generate-game-select").find(".selected-option").removeClass("selected-option");
+            $(this).addClass("selected-option");
+            let id = parseInt($(this).attr("value"));
+            $("#game_id").val(id);
             GenerateReplyApp.instance.restartGenerateProcess(true);
         });
     }
@@ -96,16 +100,17 @@ function GenerateReplyApp() {
             var obj = JSON.parse(data);
             for (var key in obj){
               var value = obj[key];
-              var html = `<option value="${value.id}" data-reset='true'>${value.name}</option>`;
+              var html = `<option class="game_selection" value="${value.id}" data-reset='true'>${value.name}</option>`;
               $("#generate-game-select").append($.parseHTML(html));
             }
+            GenerateReplyApp.instance.gameChangeListener();
         });
     }
 
     /* Where the magic happens. Generates a reply based on a set of conditions */
     this.generateReply = function(previous_reply_id = null) {
         var platform_id = parseInt($("#platform_id").val());
-        var game_id = parseInt($("#generate-game-select").val());
+        var game_id = parseInt($("#game_id").attr("value"));
         var review_category_id = parseInt($("#review_category_id").attr("value"));
 
         var data = new Object();
