@@ -10,6 +10,7 @@ function GenerateReplyApp() {
         $("#generate-platform-div").show();
 
         this.platformChangeListener();
+        this.generatingGames = false;
         this.gameChangeListener();
         this.categoryChangeListener();
         this.generateReplyButtonClickListener();
@@ -96,15 +97,30 @@ function GenerateReplyApp() {
         $("#generate-game-div").show();
         $("#generate-game-select option[data-reset]").remove();
 
-        $.get( `/usedReplies/getGamesByPlatform/${platform_id}`, function( data ) {
-            var obj = JSON.parse(data);
-            for (var key in obj){
-              var value = obj[key];
-              var html = `<option class="game_selection" value="${value.id}" data-reset='true'>${value.name}</option>`;
-              $("#generate-game-select").append($.parseHTML(html));
-            }
-            GenerateReplyApp.instance.gameChangeListener();
-        });
+        if (! this.generatingGames) {
+            this.generatingGames = true;
+
+            $.get( `/usedReplies/getGamesByPlatform/${platform_id}`, function( data ) {
+                $("#generate-game-select option[data-reset]").remove();
+
+                var obj = JSON.parse(data);
+
+                if (obj.length == 0) {
+                    $("#create-games-message").show();
+                } else {
+                    $("#create-games-message").hide();
+                }
+                
+                for (var key in obj){
+                  var value = obj[key];
+                  var html = `<option class="game_selection" value="${value.id}" data-reset='true'>${value.name}</option>`;
+                  $("#generate-game-select").append($.parseHTML(html));
+                }
+
+                GenerateReplyApp.instance.gameChangeListener();
+                GenerateReplyApp.instance.generatingGames = false;
+            });
+        }
     }
 
     /* Where the magic happens. Generates a reply based on a set of conditions */

@@ -7,7 +7,7 @@ return function (Container $container) {
     $container->set('settings', function () {
         return [
             'Name' => 'Color Switch Reviews',
-            'displayErrorDetails' => true,
+            'displayErrorDetails' => false,
             'logErrorDetails' => true,
             'logErrors' => true,
 
@@ -24,7 +24,7 @@ return function (Container $container) {
 
             'views' => [
                 'path' => __DIR__ . '/../src/Views',
-                'settings' => ['cache' => false, 'debug' => true],
+                'settings' => ['cache' => '../var/cache', 'debug' => false],
             ],
         ];
     });

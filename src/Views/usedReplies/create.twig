@@ -36,6 +36,9 @@
                             <label class="form-label" for="game_id">Game</label>
                             <div class="form-control select-faker" id="generate-game-select" required>
 
+                                <div class="p-2 hidden" id="create-games-message">
+                                    <a href="{{url('/games/create')}}" >Looks like some games need to be created for that platform... Click here to create.</a>
+                                </div>
                             </div>
 
                             <input type="hidden" name="game_id" id="game_id" >
